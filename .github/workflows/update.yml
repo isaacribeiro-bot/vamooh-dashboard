@@ -1,0 +1,36 @@
+name: Atualizar painel
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # a cada hora
+  workflow_dispatch: {}    # botão manual "Run workflow"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Atualizar dados do painel
+        run: python update_dashboard.py
+
+      - name: Commit e push se mudou algo
+        run: |
+          git config user.name "painel-bot"
+          git config user.email "painel-bot@users.noreply.github.com"
+          if git diff --quiet; then
+            echo "Nada mudou, nada a publicar."
+          else
+            git add index.html
+            git commit -m "Atualiza dados do painel ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+            git push
+          fi
