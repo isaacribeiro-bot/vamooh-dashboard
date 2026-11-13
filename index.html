@@ -230,7 +230,6 @@ footer.note b{color:var(--ink);}
     </div>
   </section>
 
-  <footer class="note">Dados: aba Lançamentos, Metas e Executivos da planilha Líquido Growth 2026. Esta é uma fotografia dos dados em <b id="snapDate">—</b> — para atualizar, peça para o Claude gerar um novo retrato com os lançamentos mais recentes.</footer>
 
 </div>
 
@@ -386,7 +385,6 @@ document.getElementById('selExec').addEventListener('change', (e)=>{
   renderKPI(); renderChart(); renderNucleo(); renderSales();
 });
 
-document.getElementById('snapDate').textContent = new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
 renderAll();
 </script>
 </body>
